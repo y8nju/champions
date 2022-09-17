@@ -13,50 +13,57 @@ export default function RoleItem ({data, onPress}) {
 	const iconName= roleIcon[data.name];
 	return ( <View style={styles.itemArea}>
 		<Pressable android_ripple={{color: '#111'}} style={styles.layer} onPress={()=> onPress(data.name, data.role)}>
+			<View></View>
+		</Pressable>
+		<View style={{flex:1, backgroundColor: "#061c25"}}>
 			<ImageBackground source={iconName} resizeMode="cover" style={{flex:1}} />
 			<View style={styles.innerArea}>
 				<CustomText style={styles.text} type={"gowun"}>{data.role}</CustomText>
 				<Text style={styles.text}> / </Text>
 				<CustomText style={[styles.text]} type={"gowun"}>{data.name}</CustomText>
 			</View>
-			<View style={styles.deco}></View>
-		</Pressable>
+		</View>
+		<View style={styles.deco}></View>
 	</View> );
 }
 const styles = StyleSheet.create({
 	itemArea: {
+		flex: 1,
+		height: 230,
+		justifyContent: "center",
+		position: 'relative',
 		margin: 8,
 		marginTop: 12,
-		elevation: 1,
-		flex: 1,
-		justifyContent: "center",
-		height: 230,
+		overflow: 'hidden',
 	},
 	layer: {
-		flex:1,
-		flexDirection: "column",
-		position: "relative",
-		backgroundColor: "#000"
+		flex: 1,
+		width: "100%",
+		height: "100%",
+		alignItems: 'center',
+		justifyContent:'center',
+		position: 'absolute',
+		zIndex: 10,
 	},
 	innerArea: {
-		flexDirection: "row",
+		flexDirection: 'row',
 		justifyContent: "flex-end",
-		textAlign: "center",
 		backgroundColor: "#061c25",
 		paddingVertical: 12,
 		paddingHorizontal: 16,
 	},
 	text: {
+		fontSize: 18,
 		color: "#fff",
-		fontSize: 18
 	},
 	deco: {
-		position:"absolute", 
 		width: 20, 
 		height: 20, 
+		position:"absolute", 
 		top: -10, 
 		right: -10, 
-		transform: [{ rotate: "45deg" }],
+		zIndex: 15,
 		backgroundColor: "#f2f2f2", 
+		transform: [{ rotate: "45deg" }],
 	}
 })

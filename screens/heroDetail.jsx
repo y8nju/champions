@@ -1,13 +1,29 @@
-import { useEffect, useState } from "react";
-import { ImageBackground, StyleSheet, Text, View } from "react-native";
+import { useEffect, useState, useContext } from "react";
+import { Button, ImageBackground, StyleSheet, Text, View } from "react-native";
 import CustomText from "../components/customText";
+import IconButton from "../components/iconButton";
+import AppContext from "../context/appContext";
 
 export default function HeroDetail({navigation, route}) {
+    /* App.js에서 value로 넘긴 favorite */
+    const {favorites, addFavorite, removeFavorite} = useContext(AppContext);
     const {data} = route.params;
     console.log(data);
     const [tags, setTags] = useState();
+
+    const defaultVaule  = favorites.includes(data.id);
+    const [checked, setChecked] = useState(defaultVaule);
+    const pressHandle = () => {
+        if(checked) {
+            removeFavorite(data.id)
+            setChecked(false);
+        } else {
+            addFavorite(data.id)
+            setChecked(true);
+        }
+    }
     useEffect(() => {
-        navigation.setOptions({title: data.name});
+        navigation.setOptions({title: data.name,  headerRight: ()=> <IconButton  name={checked ? "star" : "staro" } size={18} onPress={pressHandle}/> });
         const tagArr = [];
         data.tags.forEach((one)=> {
             switch(one) {
@@ -32,8 +48,7 @@ export default function HeroDetail({navigation, route}) {
             }
         })
         setTags(tagArr);
-    }, [data.name])
-    console.log(tags)
+    }, [data.name, checked]);
     return ( <View style={{flex: 1}}>
         <ImageBackground source={{uri: data.fullImage}} style={styles.detailArea} resizeMode="cover">
             <View style={styles.tagsArea}>

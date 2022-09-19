@@ -1,17 +1,46 @@
-import { StatusBar, StyleSheet, Text, View } from 'react-native';
+import { useState } from 'react';
+import { Button, StatusBar, StyleSheet, Text, View } from 'react-native';
 import { useFonts } from 'expo-font';
 import RoleList from './screens/roleList';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import AppContext, { AppContextProvider } from './context/appContext';
 import HeroList from './screens/heroList';
 import HeroDetail from './screens/heroDetail';
+import Favorites from './screens/favList';
 
 const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
+
+function Menu() {
+	return (<Drawer.Navigator 
+		screenOptions={{
+			headerTintColor: "#fff",
+			headerStyle: {backgroundColor: '#061c25'},
+			headerTitleStyle: {fontFamily: "GowunDodumRegular"}, 
+			drawerInactiveTintColor: "#fff",
+			drawerStyle: {
+				backgroundColor: '#061c25', 
+			},
+			drawerActiveBackgroundColor:  '#52676e',
+			drawerActiveTintColor: '#fff'
+		}}>
+		<Drawer.Screen name="roleList" component={RoleList} 
+			options={{title: "챔피언", headerTitleStyle: {fontFamily: "GowunDodumRegular"}, 
+				drawerIcon: ({color})=> <Ionicons name='list' size={20} color={color}/>}} />
+		<Drawer.Screen name="favorites" component={Favorites} 
+			options={{title: "즐겨찾기", headerTitleStyle: {fontFamily: "GowunDodumRegular"}, 
+				drawerIcon: ({color})=> <Ionicons name='star' size={20} color={color}/>}} />
+	</Drawer.Navigator>);
+}
 /* 
 	원할한 navigation 효과를 위해 react native 에서는
 */
 
-export default function App() {
+export default function App() {	
+
 	const [fontLoaded] = useFonts({
 		'TitilliumRegular': require('./assets/fonts/TitilliumWeb-Regular.ttf'),
 		'TitilliumSemiBold': require('./assets/fonts/TitilliumWeb-SemiBold.ttf'),
@@ -25,13 +54,22 @@ export default function App() {
 	}
 	return (<>
 		<StatusBar style="dark" />
-		<NavigationContainer>
-    <Stack.Navigator>
-			<Stack.Screen name="roleList" component={RoleList} options={{title: "전체 역할군", headerTitleStyle: {fontFamily: "GowunDodumRegular"}}}/>
-			<Stack.Screen name="heroList" component={HeroList} options={{title: "챔피언", headerTitleStyle: {fontFamily: "GowunDodumRegular"}}}/>
-			<Stack.Screen name="heroDetail" component={HeroDetail} options={{title: "Hero", headerTitleStyle: {fontFamily: "GowunDodumRegular"}}}/>
-		</Stack.Navigator>
-	</NavigationContainer>
+			{/* favoritList 관리는 useContext로 함 */}
+		<AppContextProvider>
+			<NavigationContainer>
+				<Stack.Navigator initialRouteName='roleList'
+					screenOptions={{
+						headerTintColor: "white",
+						headerStyle: {backgroundColor: '#061c25'},
+						headerTitleStyle: {fontFamily: "GowunDodumRegular"}, 
+						animation: 'slide_from_right'
+					}}>
+					<Stack.Screen name="menu" component={Menu} options={{headerShown: false}} />
+					<Stack.Screen name="heroList" component={HeroList} options={{title: "챔피언"}}/>
+					<Stack.Screen name="heroDetail" component={HeroDetail} options={{title: "Hero"}}/>
+				</Stack.Navigator>
+			</NavigationContainer>
+		</AppContextProvider>
 	</>);
 }
 

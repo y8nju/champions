@@ -1,5 +1,5 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
-import CustomText from "../components/customText";
+import CustomText from "./customText";
 import {Dimensions} from 'react-native';
 const Width = Dimensions.get('window').width; 
 

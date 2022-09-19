@@ -1,5 +1,5 @@
 import { Image, ImageBackground, Pressable, StyleSheet, Text, View } from "react-native";
-import CustomText from "../components/customText";
+import CustomText from "./customText";
 
 const roleIcon = {
 	Assassin: require('../assets/icons/Assassin.jpg'),
@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
 		margin: 8,
 		marginTop: 12,
 		overflow: 'hidden',
+		backgroundColor: "#061c25",
 	},
 	layer: {
 		flex: 1,

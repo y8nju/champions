@@ -15,9 +15,9 @@ export default function RoleItem ({data, onPress}) {
 		<Pressable android_ripple={{color: '#111', foreground: true}} style={styles.layer} onPress={()=> onPress(data.name, data.role)}>
 			<Image source={iconName} resizeMode="cover" style={{flex:1, width:'100%'}} />
 			<View style={styles.innerArea}>
-				<CustomText style={styles.text} type={"gowun"}>{data.role}</CustomText>
-				<Text style={styles.text}> / </Text>
-				<CustomText style={[styles.text]} type={"gowun"}>{data.name}</CustomText>
+				<CustomText style={[styles.text, {fontSize: 17}]} type={"gowun"}>{data.role}</CustomText>
+				<Text style={styles.text}>/</Text>
+				<CustomText style={[styles.text, {fontSize: 16}]} type={"gowun"}>{data.name}</CustomText>
 			</View>
 		</Pressable>
 			<View style={styles.deco}></View>
@@ -41,12 +41,13 @@ const styles = StyleSheet.create({
 	innerArea: {
 		flexDirection: 'row',
 		justifyContent: "flex-end",
+		alignItems: 'flex-end',
 		backgroundColor: "#061c25",
-		paddingVertical: 12,
-		paddingHorizontal: 16,
+		paddingTop: 8,
+		paddingBottom: 12,
+		paddingHorizontal: 14,
 	},
 	text: {
-		fontSize: 18,
 		color: "#fff",
 	},
 	deco: {

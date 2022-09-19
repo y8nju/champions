@@ -12,24 +12,25 @@ export default function FavItem({data, onPress}) {
     const defaultVaule  = favorites.includes(data.id);
     const [checked, setChecked] = useState(defaultVaule);
 	const pressHandle = () => {
-
+		removeFavorite(data.id)
+		setChecked(false);
 	}
 	return (<View style={styles.itemArea}>
 		<Pressable  android_ripple={{color: '#111', foreground: true}} 
 			onPress={()=> onPress(data)} style={{flex: 1}}>
 			<Image source={{uri: data.simpleImage}} style={{flex: 1, width: '100%'}}/>
 			<View style={styles.innerArea}>
-			<CustomText style={styles.text} type={"gowun"}>{data.name}</CustomText>
+				<CustomText style={styles.text} type={"gowun"}>{data.name}</CustomText>
 			</View>
 		</Pressable>
-		<IconButton  name={checked ? "star" : "staro" } size={14} onPress={pressHandle} style={styles.chkIcon}/>
+		<IconButton name={checked ? "star" : "staro" } size={14} onPress={pressHandle} style={styles.chkIcon}/>
 		<View style={styles.deco}></View>
 	</View> );
 }
 const styles = StyleSheet.create({
 	itemArea: {
 		width: (Width-48 -24)/ 3,
-		height: 100,
+		height: 110,
 		margin: 4,
 		position: 'relative',
 		overflow: 'hidden',
@@ -37,7 +38,8 @@ const styles = StyleSheet.create({
 	innerArea: {
 		alignItems: "flex-end",
 		backgroundColor: "#061c25",
-		paddingVertical: 6,
+		paddingTop: 4,
+		paddingBottom: 6,
 		paddingHorizontal: 10,
 	},
 	text: {
@@ -57,7 +59,8 @@ const styles = StyleSheet.create({
 	chkIcon: {
 		position:"absolute", 
 		top: 0, 
-		left: 0
+		left: 0,
+		padding: 4
 	}
 
 })

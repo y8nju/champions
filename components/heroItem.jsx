@@ -19,7 +19,6 @@ export default function HeroItem ({data, onPress}) {
 }
 const styles = StyleSheet.create({
 	itemArea: {
-		flex: 1,
 		width: (Width-32) / 2,
 		height: 200,
 		justifyContent: "center",
@@ -35,11 +34,12 @@ const styles = StyleSheet.create({
 	innerArea: {
 		alignItems: "flex-end",
 		backgroundColor: "#061c25",
-		paddingVertical: 12,
+		paddingTop: 8,
+		paddingBottom: 12,
 		paddingHorizontal: 16,
 	},
 	text: {
-		fontSize: 18,
+		fontSize: 17,
 		color: "#fff",
 	},
 	deco: {

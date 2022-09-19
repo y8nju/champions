@@ -12,18 +12,15 @@ const roleIcon = {
 export default function RoleItem ({data, onPress}) {
 	const iconName= roleIcon[data.name];
 	return ( <View style={styles.itemArea}>
-		<Pressable android_ripple={{color: '#111'}} style={styles.layer} onPress={()=> onPress(data.name, data.role)}>
-			<View></View>
-		</Pressable>
-		<View style={{flex:1, backgroundColor: "#061c25"}}>
-			<ImageBackground source={iconName} resizeMode="cover" style={{flex:1}} />
+		<Pressable android_ripple={{color: '#111', foreground: true}} style={styles.layer} onPress={()=> onPress(data.name, data.role)}>
+			<Image source={iconName} resizeMode="cover" style={{flex:1, width:'100%'}} />
 			<View style={styles.innerArea}>
 				<CustomText style={styles.text} type={"gowun"}>{data.role}</CustomText>
 				<Text style={styles.text}> / </Text>
 				<CustomText style={[styles.text]} type={"gowun"}>{data.name}</CustomText>
 			</View>
-		</View>
-		<View style={styles.deco}></View>
+		</Pressable>
+			<View style={styles.deco}></View>
 	</View> );
 }
 const styles = StyleSheet.create({
@@ -38,11 +35,6 @@ const styles = StyleSheet.create({
 	},
 	layer: {
 		flex: 1,
-		width: "100%",
-		height: "100%",
-		alignItems: 'center',
-		justifyContent:'center',
-		position: 'absolute',
 		zIndex: 10,
 	},
 	innerArea: {

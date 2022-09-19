@@ -37,7 +37,7 @@ export default function HeroDetail({navigation, route}) {
     return ( <View style={{flex: 1}}>
         <ImageBackground source={{uri: data.fullImage}} style={styles.detailArea} resizeMode="cover">
             <View style={styles.tagsArea}>
-                {tags?.map((one) => <CustomText style={styles.tagBox}>{one}</CustomText>)}
+                {tags?.map((one, idx) => <CustomText key={idx} style={styles.tagBox}>{one}</CustomText>)}
             </View>
             <View style={styles.textArea}>
                 <CustomText type={"gowun"} style={[styles.whiteText, {fontSize: 20}]}>{data.title}</CustomText>

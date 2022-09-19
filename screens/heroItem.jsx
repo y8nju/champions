@@ -6,20 +6,20 @@ const Width = Dimensions.get('window').width;
 export default function HeroItem ({data, onPress}) {
 
 	return (<View style={styles.itemArea}>
-		<Pressable style={styles.layer} android_ripple={{color: "#111"}} onPress={()=> onPress(data)}>
-			<View></View>
-		</Pressable>
-		<View style={{flex:1}}>
-			<Image source={{uri: data.simpleImage}} style={{flex: 1}} />
-			<View style={styles.innerArea}>
-				<CustomText style={styles.text} type={"gowun"}>{data.name}</CustomText>
+		<Pressable style={styles.layer} android_ripple={{color: "#111", foreground: true}} onPress={()=> onPress(data)}>
+			<Image source={{uri: data.simpleImage}} style={{flex: 1, width: '100%'}} />
+			<View>
+				<View style={styles.innerArea}>
+					<CustomText style={styles.text} type={"gowun"}>{data.name}</CustomText>
+				</View>
 			</View>
-		</View>
+		</Pressable>
 		<View style={styles.deco}></View>
 	</View>  );
 }
 const styles = StyleSheet.create({
 	itemArea: {
+		flex: 1,
 		width: (Width-32) / 2,
 		height: 200,
 		justifyContent: "center",
@@ -30,11 +30,6 @@ const styles = StyleSheet.create({
 	},
 	layer: {
 		flex: 1,
-		width: "100%",
-		height: "100%",
-		alignItems: 'center',
-		justifyContent:'center',
-		position: 'absolute',
 		zIndex: 10,
 	},
 	innerArea: {

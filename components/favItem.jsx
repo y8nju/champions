@@ -1,20 +1,22 @@
-import { useEffect, useState, useContext } from "react";
+import { useState } from "react";
 import { View, Pressable, Image, StyleSheet , Dimensions} from "react-native";
-import AppContext from "../context/appContext";
 import CustomText from "./customText";
 import IconButton from "../components/iconButton";
+import { useDispatch, useSelector, useStore } from "react-redux";
+import favoriteSlice from "../redux/slices/favorite";
 
 const Width = Dimensions.get('window').width; 
 
 export default function FavItem({data, onPress}) {
-    const {favorites, removeFavorite} = useContext(AppContext);
-
+    const favorites = useSelector(state=>state.favorite)
+	const dispatch = useDispatch();
     const defaultVaule  = favorites.includes(data.id);
     const [checked, setChecked] = useState(defaultVaule);
 	const pressHandle = () => {
-		removeFavorite(data.id)
+		dispatch(favoriteSlice.actions.removeFavorite(data.id));
 		setChecked(false);
 	}
+	console.log(favorites)
 	return (<View style={styles.itemArea}>
 		<Pressable  android_ripple={{color: '#111', foreground: true}} 
 			onPress={()=> onPress(data)} style={{flex: 1}}>

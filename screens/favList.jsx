@@ -1,13 +1,13 @@
-import {useContext, useEffect} from 'react';
+import {useEffect} from 'react';
 import { View, FlatList, StyleSheet } from "react-native";
-import CustomText from "../components/customText";
-import FavItem from '../components/favItem';
-import AppContext from '../context/appContext';
+import { useSelector } from 'react-redux';
 import { champoions } from '../data/data-dummy';
+import FavItem from '../components/favItem';
 
 
 export default function  Favorites({navigation, route}) {
-    const { favorites } = useContext(AppContext);
+    const favorites = useSelector(state=>state.favorite)
+
     const favChams = champoions.filter((one)=> favorites.includes(one.id));
     console.log('list', favChams)
     const pressHandle = (itemData) => {

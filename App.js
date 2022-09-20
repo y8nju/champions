@@ -1,15 +1,16 @@
-import { useState } from 'react';
 import { Button, StatusBar, StyleSheet, Text, View } from 'react-native';
 import { useFonts } from 'expo-font';
-import RoleList from './screens/roleList';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import Ionicons from '@expo/vector-icons/Ionicons';
-import AppContext, { AppContextProvider } from './context/appContext';
+import RoleList from './screens/roleList';
 import HeroList from './screens/heroList';
 import HeroDetail from './screens/heroDetail';
 import Favorites from './screens/favList';
+
+import { Provider } from 'react-redux';
+import store from './redux/index';
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -55,7 +56,7 @@ export default function App() {
 	return (<>
 		<StatusBar style="dark" />
 			{/* favoritList 관리는 useContext로 함 */}
-		<AppContextProvider>
+		<Provider store={store}>
 			<NavigationContainer>
 				<Stack.Navigator initialRouteName='roleList'
 					screenOptions={{
@@ -69,7 +70,7 @@ export default function App() {
 					<Stack.Screen name="heroDetail" component={HeroDetail} options={{title: "Hero"}}/>
 				</Stack.Navigator>
 			</NavigationContainer>
-		</AppContextProvider>
+		</Provider>
 	</>);
 }
 
